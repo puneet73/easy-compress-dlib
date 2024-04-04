@@ -16,6 +16,10 @@ public:
         return index;
     }
 
+    size_t size() const {
+        return buffer_.size();
+    }
+
     unsigned char& operator[](size_t index) {
         return buffer_[index];
     }
