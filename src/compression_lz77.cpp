@@ -18,8 +18,8 @@ void compress_and_decompress(std::string& input_data) {
         T compressor(total_limit, lookahead_limit);
         T decompressor(total_limit, lookahead_limit);
 
-        std::string compressed_data;
-        std::string decompressed_data;
+        std::stringstream compressed_data_stream;
+        std::stringstream decompressed_data_stream;
 
         // Compress the input data
         for (char c : input_data) {
@@ -28,16 +28,37 @@ void compress_and_decompress(std::string& input_data) {
             compressor.find_match(index, length, 3);  // Minimum match length of 3
             if (length > 0) {
                 // Encode the match (index, length)
-                // ...
+                compressed_data_stream << static_cast<unsigned char>((index >> 8) & 0xFF); // High byte of index
+                compressed_data_stream << static_cast<unsigned char>(index & 0xFF);        // Low byte of index
+                compressed_data_stream << static_cast<unsigned char>(length);              // Length
             } else {
                 // Encode the literal character
-                // ...
+                compressed_data_stream << c;
             }
             compressor.shift_buffers(length);
         }
 
+        std::string compressed_data = compressed_data_stream.str();
+
         // Decompress the compressed data
-        // ... (implement decompression logic here)
+        for (size_t i = 0; i < compressed_data.size();) {
+            unsigned char c = compressed_data[i++];
+            if (c & 0x80) { // Check if high bit is set
+                // Decode the match (index, length)
+                unsigned long index = ((c & 0x7F) << 8) | compressed_data[i++];
+                unsigned long length = compressed_data[i++];
+                // Add the match to the decompressed data
+                for (unsigned long j = 0; j < length; ++j) {
+                    decompressed_data_stream << decompressor.history_buffer(index - j);
+                }
+            } else {
+                // Decode the literal character
+                decompressed_data_stream << c;
+                decompressor.add(c); // Add to the decompressor
+            }
+        }
+
+        std::string decompressed_data = decompressed_data_stream.str();
 
         // Output the results
         std::cout << "Original Data:\n" << input_data << std::endl;
@@ -48,7 +69,6 @@ void compress_and_decompress(std::string& input_data) {
         throw;
     }
 }
-
 
 
 int main() {
