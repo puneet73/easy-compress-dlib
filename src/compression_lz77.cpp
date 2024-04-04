@@ -49,19 +49,6 @@ void compress_and_decompress(std::string& input_data) {
     }
 }
 
-template<typename T>
-void compress_and_decompress(std::string& input_data) {
-    try {
-        // Create instances of lz77_buffer for compression and decompression
-        T compressor(total_limit, lookahead_limit);
-        T decompressor(total_limit, lookahead_limit);
-
-        // ... (rest of the compression/decompression logic)
-    } catch (std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        throw;
-    }
-}
 
 
 int main() {
@@ -80,3 +67,5 @@ int main() {
 
     return 0;
 }
+
+//g++ -o compression_example src\compression_lz77.cpp -I.
