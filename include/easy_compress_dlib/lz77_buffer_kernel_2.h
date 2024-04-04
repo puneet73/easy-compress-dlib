@@ -366,7 +366,7 @@ namespace dlib{
         while (temp != 0)
         {             
             // current position in the history buffer
-            unsigned long hpos = buffer.get_element_index(temp->id)-lookahead_limit;  
+            unsigned long hpos = temp->id-lookahead_limit;  
             // current position in the lookahead buffer
             unsigned long lpos = 0;             
 
@@ -384,7 +384,7 @@ namespace dlib{
             if (lpos > match_length)
             {
                 match_length = lpos;
-                match_index = buffer.get_element_index(temp->id)-lookahead_limit;
+                match_index = temp->id-lookahead_limit;
                 // if this is the longest possible match then stop looking
                 if (lpos == lookahead_limit)
                     break;
