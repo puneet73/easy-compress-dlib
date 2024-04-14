@@ -1,10 +1,7 @@
 #include <bits/stdc++.h>
 #include <sstream>
 #include <string>
-#include "../dlib/lz77_buffer/lz77_buffer_kernel_1.h"
-#include "../dlib/lz77_buffer/lz77_buffer_kernel_2.h"
-#include "../dlib/lz77_buffer/lz77_buffer_kernel_abstract.h"
-#include "../dlib/lz77_buffer/lz77_buffer_kernel_c.h"
+#include "lz77_buffer_kernel_1_wrapper.h"
 #include "sliding_buffer.h" 
 
 // Define the total_limit and lookahead_limit values
