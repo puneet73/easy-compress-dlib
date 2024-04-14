@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <concepts>
+#include "../dlib/lz77_buffer/lz77_buffer_kernel_1.h"
 
 namespace easy_compress_dlib {
 
