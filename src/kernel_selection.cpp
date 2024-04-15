@@ -1,6 +1,6 @@
 #include "easy_compress_dlib/kernel_selection.h"
 #include <iostream>
-#include <vector>
+#include "custom_vector.h"
 #include <string>
 #include <tuple>
 #include <algorithm>
